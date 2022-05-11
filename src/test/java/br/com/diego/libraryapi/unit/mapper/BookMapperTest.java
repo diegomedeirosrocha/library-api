@@ -49,7 +49,7 @@ class BookMapperTest {
     @Test
     @DisplayName("save book - sucess")
     void validarConverterEnityToDto() {
-        Book book = CommonsTest.createBookValid();
+        Book book = BookFactory.createBookValid();
 
         BookDto bookDto = bookMapper.entityToDto(book);
 
