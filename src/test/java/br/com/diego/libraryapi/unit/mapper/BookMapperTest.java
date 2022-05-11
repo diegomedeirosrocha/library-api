@@ -3,7 +3,7 @@ package br.com.diego.libraryapi.unit.mapper;
 import br.com.diego.libraryapi.dtos.BookDto;
 import br.com.diego.libraryapi.mapper.BookMapper;
 import br.com.diego.libraryapi.models.Book;
-import br.com.diego.libraryapi.unit.commons.CommonsTest;
+import br.com.diego.libraryapi.data.factory.BookFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ class BookMapperTest {
     @Test
     @DisplayName("convert dto to entity - sucess")
     void validarConverterDtoToEntity() {
-        BookDto bookDto = CommonsTest.createBookDtoValid();
+        BookDto bookDto = BookFactory.createBookDtoValid();
 
         Book book = bookMapper.dtoToEntity(bookDto);
 
@@ -73,8 +73,8 @@ class BookMapperTest {
     @DisplayName("convert entityListToDtos - sucess")
     void convertListEntityListoToDtosSucess() {
         List<Book> bookList = new ArrayList<>();
-        bookList.add(CommonsTest.createBookValid());
-        bookList.add(CommonsTest.createBookValid2());
+        bookList.add(BookFactory.createBookValid());
+        bookList.add(BookFactory.createBookValid2());
 
         List<BookDto> bookDtos = bookMapper.entityListToDtos(bookList);
 

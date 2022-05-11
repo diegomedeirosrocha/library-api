@@ -5,7 +5,7 @@ import br.com.diego.libraryapi.models.Book;
 import br.com.diego.libraryapi.repository.BookRepository;
 import br.com.diego.libraryapi.service.BookService;
 import br.com.diego.libraryapi.service.impl.BookServiceImpl;
-import br.com.diego.libraryapi.unit.commons.CommonsTest;
+import br.com.diego.libraryapi.data.factory.BookFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ class BookServiceImplTest {
     @Test
     @DisplayName("save book - sucess")
     void salveBook_success() {
-        BookDto bookDto = CommonsTest.createBookDtoValid();
+        BookDto bookDto = BookFactory.createBookDtoValid();
         Book book = new Book();
         BeanUtils.copyProperties(bookDto, book);
 
@@ -71,7 +71,7 @@ class BookServiceImplTest {
     @DisplayName("get all books - sucess")
     void getAllBooks_success() {
         List<Book> bookList = new ArrayList<>();
-        bookList.add(CommonsTest.createBookValid());
+        bookList.add(BookFactory.createBookValid());
         bookList.add(createBookValid2());
 
         Mockito.when(repository.findAll()).thenReturn(bookList);
@@ -90,7 +90,7 @@ class BookServiceImplTest {
     @Test
     @DisplayName("save book by id - sucess")
     void getBookById_success() {
-        Book book = CommonsTest.createBookValid();
+        Book book = BookFactory.createBookValid();
 
         Mockito.when(repository.findById(22L)).thenReturn(Optional.ofNullable(book));
 
@@ -118,7 +118,7 @@ class BookServiceImplTest {
     @Test
     @DisplayName("Delete book sucess")
     void deleteBook_sucess() {
-        Book book = CommonsTest.createBookValid();
+        Book book = BookFactory.createBookValid();
 
         service.deleteBook(book);
 
@@ -128,7 +128,7 @@ class BookServiceImplTest {
     @Test
     @DisplayName("Update book sucess")
     void updateBook_sucess() {
-        Book book = CommonsTest.createBookValid();
+        Book book = BookFactory.createBookValid();
         Book bookUpdate = createBookValid2();
         bookUpdate.setId(22L);
 

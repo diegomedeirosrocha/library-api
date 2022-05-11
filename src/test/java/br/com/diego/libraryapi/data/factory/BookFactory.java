@@ -1,9 +1,9 @@
-package br.com.diego.libraryapi.unit.commons;
+package br.com.diego.libraryapi.data.factory;
 
 import br.com.diego.libraryapi.dtos.BookDto;
 import br.com.diego.libraryapi.models.Book;
 
-public class CommonsTest {
+public class BookFactory {
     public static Book createBookValid() {
         return Book.builder()
                 .id(22L)

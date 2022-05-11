@@ -59,8 +59,8 @@ class BookControllerTest {
     private BookRepository repository;
 
     @Test
-    @DisplayName("save book - sucess")
-    void test1SaveBookSucess() throws Exception {
+    @DisplayName("livro valido, entao devo salvar o livro")
+    void mustSaveBook() throws Exception {
         BookDto bookDto = createBookValid();
         Book book = dtoToEntity(bookDto);
 
@@ -74,26 +74,10 @@ class BookControllerTest {
                 .andExpect(status().isCreated());
     }
 
-    @Test
-    @DisplayName("save book - fail")
-    void test2SaveBookFail() throws Exception {
-        BookDto bookDto = createBookValid();
-        bookDto.setId(null);
-        Book book = dtoToEntity(bookDto);
-
-        BDDMockito.given(service.saveBook(bookDto)).willReturn(book);
-
-        mockMvc.perform(post(PATH_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectToJson(bookDto)))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
-    }
-
     @ParameterizedTest
     @ValueSource(strings = {"id", "name", "status"})
-    @DisplayName("save book parametrized - fail")
-    void test3SaveBookParametrizedFail(String field) throws Exception {
+    @DisplayName("campo null, devo retornar isBadRequest")
+    void mustReturnIsBadRequest(String field) throws Exception {
         BookDto bookDto = createBookValid();
         switch (field) {
             case "id":
@@ -120,8 +104,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("save book - error")
-    void test3SaveAlreadyCreate_error() throws Exception {
+    @DisplayName("livro ja cadastrado anteriormente, devor retornar mensagem de erro 'Livro ja cadastrado'")
+    void mustReturnMessageBookAlrightCreate() throws Exception {
         BookDto bookDto = createBookValid();
         Book book = dtoToEntity(bookDto);
 
@@ -140,8 +124,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("get all books - success")
-    void test4getAllBooks_success() throws Exception {
+    @DisplayName("devo retornar lista de livros")
+    void mustReturnListBooks() throws Exception {
         List<BookDto> bookDtos = new ArrayList<>();
         bookDtos.add(createBookValid());
         bookDtos.add(createBookValid2());
@@ -166,8 +150,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("getAllBook - noContent")
-    void test5getAllBooks_NoContent() throws Exception {
+    @DisplayName("devo retornar lista de livros - noContent")
+    void mustReturnNoContent() throws Exception {
         BDDMockito.given(service.getAllBooks()).willReturn(new ArrayList<>());
         BDDMockito.given(bookMapper.entityListToDtos(new ArrayList<>())).willReturn(new ArrayList<>());
 
@@ -178,8 +162,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("get book by id - success")
-    void test6getBookById_success() throws Exception {
+    @DisplayName("devo retonar o livro solicitado pelo getById")
+    void mustReturnBoookGetById() throws Exception {
         BookDto bookDto = createBookValid();
         Book book = dtoToEntity(bookDto);
 
@@ -198,8 +182,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("delete book by id - success")
-    void test7deleteBookById_success() throws Exception {
+    @DisplayName("devo deletar o livro")
+    void mustDeleteBookById() throws Exception {
         BookDto bookDto = createBookValid();
         Book book = dtoToEntity(bookDto);
 
@@ -214,8 +198,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("delete book - dontFound")
-    void test8deleteBook_DontFound() throws Exception {
+    @DisplayName("devo retornar o erro 'isNotFound' ao tentar deletar livro")
+    void mustRetunrDontFoundInDeleteBook() throws Exception {
         BookDto bookDto = createBookValid();
 
         BDDMockito.given(service.getBookById(bookDto.getId())).willReturn(Optional.empty());
@@ -229,8 +213,8 @@ class BookControllerTest {
     }
 
     @Test
-    @DisplayName("update book - success")
-    void test9updateBook_success() throws Exception {
+    @DisplayName("devo atualizar o livro")
+    void mustUpdateBook() throws Exception {
         BookDto bookDto = createBookValid();
         Book book = dtoToEntity(bookDto);
 
