@@ -24,8 +24,6 @@ class BookMapperTest {
     @Autowired
     BookMapper bookMapper;
 
-    /* https://www.bswen.com/2018/04/java-spring-boot-unit-test-NullPointerException.html */
-
     @Test
     @DisplayName("convert dto to entity - sucess")
     void validarConverterDtoToEntity() {

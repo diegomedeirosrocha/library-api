@@ -14,16 +14,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookDto {
-
     @NotNull
     private Long id;
-
     @NotNull
     private String status;
-
     @NotNull
     private String name;
-
     @NotNull
     private int year;
 }

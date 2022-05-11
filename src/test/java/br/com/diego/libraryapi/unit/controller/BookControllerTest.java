@@ -31,7 +31,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -167,7 +168,6 @@ class BookControllerTest {
     @Test
     @DisplayName("getAllBook - noContent")
     void test5getAllBooks_NoContent() throws Exception {
-
         BDDMockito.given(service.getAllBooks()).willReturn(new ArrayList<>());
         BDDMockito.given(bookMapper.entityListToDtos(new ArrayList<>())).willReturn(new ArrayList<>());
 

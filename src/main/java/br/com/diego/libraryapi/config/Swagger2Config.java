@@ -14,9 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Configuration
 public class Swagger2Config {
-    //TODO URI to access http browser
-    //        http://localhost:8089/swagger-ui/index.html#/
-    //TODO remove comment
 
     @Bean
     public Docket api() {

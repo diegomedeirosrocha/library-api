@@ -22,12 +22,8 @@ import java.util.Date;
 public class Book {
     @Id
     private Long id;
-
     private String name;
-
     private String status;
-
     private int year;
-
     private Date dataCreate;
 }
