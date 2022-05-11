@@ -5,7 +5,6 @@ import br.com.diego.libraryapi.exception.BusinessException;
 import br.com.diego.libraryapi.mapper.BookMapper;
 import br.com.diego.libraryapi.models.Book;
 import br.com.diego.libraryapi.service.BookService;
-import io.swagger.annotations.Api;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api("Library API")
 @RequestMapping("/api/v1/library")
 @RestController
 @Slf4j

@@ -16,9 +16,9 @@
 
     <properties>
         <java.version>11</java.version>
-        <springfox.version>3.0.0</springfox.version>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <assertj.version>3.22.0</assertj.version>
+        <openapi.version>1.6.8</openapi.version>
     </properties>
 
     <dependencyManagement>
@@ -75,22 +75,19 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- swagger -->
+        <!-- fixing error spring 2.6.6 + Springfox and actuator:
+            https://stackoverflow.com/questions/70036953/springboot-2-6-0-spring-fox-3-failed-to-start-bean-documentationpluginsboot
+            https://github.com/springfox/springfox/issues/3462
+        -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox.version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${openapi.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <!-- LOG4J -->
