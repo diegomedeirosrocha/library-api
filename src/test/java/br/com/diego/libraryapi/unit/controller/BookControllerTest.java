@@ -220,7 +220,7 @@ class BookControllerTest {
 
         BDDMockito.given(service.getBookById(bookDto.getId())).willReturn(Optional.of(book));
         BDDMockito.given(bookMapper.entityToDto(book)).willReturn(bookDto);
-        BDDMockito.given(service.update(book)).willReturn(book);
+        BDDMockito.given(service.update(bookMapper.entityToDto(book))).willReturn(book);
 
         mockMvc.perform(put(PATH_URL)
                         .contentType(MediaType.APPLICATION_JSON)

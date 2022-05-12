@@ -44,7 +44,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book update(Book book) {
+    public Book update(BookDto bookDto) {
+        Book book = new Book();
+        BeanUtils.copyProperties(bookDto, book);
         return bookRepository.saveAndFlush(book);
     }
 

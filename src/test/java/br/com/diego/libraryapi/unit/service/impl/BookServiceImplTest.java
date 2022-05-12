@@ -1,11 +1,11 @@
 package br.com.diego.libraryapi.unit.service.impl;
 
+import br.com.diego.libraryapi.data.factory.BookFactory;
 import br.com.diego.libraryapi.dtos.BookDto;
 import br.com.diego.libraryapi.models.Book;
 import br.com.diego.libraryapi.repository.BookRepository;
 import br.com.diego.libraryapi.service.BookService;
 import br.com.diego.libraryapi.service.impl.BookServiceImpl;
-import br.com.diego.libraryapi.data.factory.BookFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -133,7 +133,9 @@ class BookServiceImplTest {
         bookUpdate.setId(22L);
 
         Mockito.when(repository.saveAndFlush(book)).thenReturn(bookUpdate);
-        Book bookReturned = service.update(book);
+        BookDto bookDto = new BookDto();
+        BeanUtils.copyProperties(book, bookDto);
+        Book bookReturned = service.update(bookDto);
 
         Assert.notNull(bookUpdate);
         assertThat(bookReturned.getId()).isEqualTo(22L);
@@ -152,6 +154,5 @@ class BookServiceImplTest {
                 .status("NEW")
                 .build();
     }
-
 
 }

@@ -44,13 +44,13 @@ public class BookController {
         if (bookDtoList.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
-
         return bookMapper.entityListToDtos(bookDtoList);
     }
 
     @GetMapping("/{id}")
     public BookDto get(@PathVariable long id) {
         log.info("getBook id: {} ", id);
+
         return bookService
                 .getBookById(id)
                 .map(book -> bookMapper.entityToDto(book))
@@ -60,7 +60,6 @@ public class BookController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         log.info(" delete book id: {} ", id);
-
         Book book = bookService.getBookById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -69,9 +68,10 @@ public class BookController {
 
     @PutMapping()
     public BookDto update(@RequestBody @Valid BookDto bookDto) {
-        Book book = bookService.getBookById(bookDto.getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (bookService.getBookById(bookDto.getId()).isPresent()) {
+            return bookMapper.entityToDto(bookService.update(bookDto));
+        }
 
-        return bookMapper.entityToDto(bookService.update(book));
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 }
