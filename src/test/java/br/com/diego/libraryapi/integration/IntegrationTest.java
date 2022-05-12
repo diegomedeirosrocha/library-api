@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 @ActiveProfiles("integration")
 @SpringBootTest(classes = LibraryApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class Integration extends BaseAPI {
+class IntegrationTest extends BaseAPI {
 
     @Autowired
     BookRestImpl bookRestImpl;
