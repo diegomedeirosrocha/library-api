@@ -35,15 +35,15 @@ class Integration extends BaseAPI {
     void mustCreatBook() {
         BookDto bookDto = BookFactory.createBookDtoValid();
         bookDto.setId(99L);
-        Response response = bookRestImpl.cadastrar(bookDto);
+        Response response = bookRestImpl.create(bookDto);
 
         response.then()
                 .assertThat()
-                .statusCode(201)
-                .body("id", equalTo(99))
-                .body("name", equalTo("Clean Code"))
-                .body("status", equalTo("NEW"))
-                .body("year", equalTo(2000));
+                    .statusCode(201)
+                    .body("id", equalTo(99))
+                    .body("name", equalTo("Clean Code"))
+                    .body("status", equalTo("NEW"))
+                    .body("year", equalTo(2000));
     }
 
     @Test
@@ -51,11 +51,11 @@ class Integration extends BaseAPI {
     void mustReturError500CreatBook() {
         BookDto bookDto = BookFactory.createBookDtoValid();
         bookDto.setId(null);
-        Response response = bookRestImpl.cadastrar(bookDto);
+        Response response = bookRestImpl.create(bookDto);
 
         response.then()
                 .assertThat()
-                .statusCode(400);
+                    .statusCode(400);
     }
 
 
@@ -81,25 +81,25 @@ class Integration extends BaseAPI {
         Book book = new Book();
         BeanUtils.copyProperties(bookDto, book);
 
-        Response response = bookRestImpl.cadastrar(bookDto);
+        Response response = bookRestImpl.create(bookDto);
 
         response.then()
                 .assertThat()
-                .statusCode(400);
+                    .statusCode(400);
     }
 
     @Test
     @DisplayName("devo retornar livro pesquisado")
     void mustReturnBook() {
-        Response response = bookRestImpl.get("1");
+        Response response = bookRestImpl.getById("1");
 
         response.then()
                 .assertThat()
-                .statusCode(200)
-                .body("id", equalTo(1))
-                .body("name", equalTo("Codigo Limpo"))
-                .body("status", equalTo("NEW"))
-                .body("year", equalTo(2007));
+                    .statusCode(200)
+                    .body("id", equalTo(1))
+                    .body("name", equalTo("Codigo Limpo"))
+                    .body("status", equalTo("NEW"))
+                    .body("year", equalTo(2007));
     }
 
     @Test
@@ -110,10 +110,10 @@ class Integration extends BaseAPI {
         List<BookDto> bookDtos = response
                 .then()
                 .assertThat()
-                .statusCode(200)
+                    .statusCode(200)
                 .extract()
-                .body()
-                .jsonPath().getList(".", BookDto.class);
+                    .body()
+                    .jsonPath().getList(".", BookDto.class);
 
         assertThat(bookDtos).extracting("id", "name", "status", "year")
                 .containsOnly(tuple(1L, "Codigo Limpo", "NEW", 2007),
@@ -123,8 +123,39 @@ class Integration extends BaseAPI {
                 .hasSize(4);
     }
 
-    //TODO DELETE
+    @Test
+    @DisplayName("devo deletar livro")
+    void mustDeleteBook() {
+        Response response = bookRestImpl.deleteById("4");
+
+        response.then()
+                .assertThat()
+                .statusCode(200);
+    }
 
     //TODO UPDATE
+    @Test
+    @DisplayName("devo alterar livro")
+    void mustUpdateBook() {
+        BookDto bookDto = createBookDtoUpdate();
+        Response response = bookRestImpl.update(bookDto);
 
+        response.then()
+                .assertThat()
+                    .statusCode(200)
+                    .body("id", equalTo(3))
+                    .body("name", equalTo("Developer Testing"))
+                    .body("status", equalTo("USED"))
+                    .body("year", equalTo(2013));
+    }
+
+
+    public static BookDto createBookDtoUpdate() {
+        return BookDto.builder()
+                .id(3L)
+                .name("Developer Testing")
+                .year(2013)
+                .status("USED")
+                .build();
+    }
 }

@@ -21,10 +21,9 @@ public class BookRestImpl {
     @Setter
     private Response response;
 
-    public Response cadastrar(BookDto bookDto) {
+    public Response create(BookDto bookDto) {
         RequestSpecification requestSpec = new RequestSpecBuilder()
                 .setContentType("application/json")
-//                /.setBaseUri(url)
                 .setAccept("*/*")
                 .setBody(bookDto)
                 .build();
@@ -38,19 +37,15 @@ public class BookRestImpl {
         return response;
     }
 
-    public Response get(String id) {
+    public Response getById(String id) {
         RequestSpecification requestSpec = new RequestSpecBuilder()
                 .setContentType("application/json")
-//                .setBaseUri(url)
                 .setAccept("*/*")
                 .build();
 
         Response response = given().log().all()
                 .spec(requestSpec)
                 .get("/ " + id);
-
-        response.then().log().headers();
-        response.then().log().body();
 
         response.then().log().all();
 
@@ -75,10 +70,42 @@ public class BookRestImpl {
     public List<BookDto> getListBooksDto(String path) {
         return given()
                 .when()
-                .get(path) //"/person"
+                    .get(path)
                 .then()
                     .extract()
-                    .body()
-                    .jsonPath().getList(".", BookDto.class);
+                        .body()
+                        .jsonPath().getList(".", BookDto.class);
     }
+
+    public Response deleteById(String id) {
+        RequestSpecification requestSpec = new RequestSpecBuilder()
+                .setContentType("application/json")
+                .setAccept("*/*")
+                .build();
+
+        Response response = given().log().all()
+                .spec(requestSpec)
+                .delete("/ " + id);
+
+        response.then().log().all();
+
+        return response;
+    }
+
+    public Response update(BookDto bookDto) {
+        RequestSpecification requestSpec = new RequestSpecBuilder()
+                .setContentType("application/json")
+                .setAccept("*/*")
+                .setBody(bookDto)
+                .build();
+
+        Response response = given().log().all()
+                .spec(requestSpec)
+                .put();
+
+        response.then().log().all();
+
+        return response;
+    }
+
 }

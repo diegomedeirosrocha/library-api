@@ -25,8 +25,8 @@ class BookMapperTest {
     BookMapper bookMapper;
 
     @Test
-    @DisplayName("convert dto to entity - sucess")
-    void validarConverterDtoToEntity() {
+    @DisplayName("deve converter dto to entity")
+    void mustConvertDtoToEntity() {
         BookDto bookDto = BookFactory.createBookDtoValid();
 
         Book book = bookMapper.dtoToEntity(bookDto);
@@ -39,16 +39,16 @@ class BookMapperTest {
     }
 
     @Test
-    @DisplayName("convert dto to entity null - sucess")
-    void validarConverterDtoToEntityImputNull() {
+    @DisplayName("deve retonar null conversao")
+    void mustReturnNullConvertDtoToEntity() {
         Book book = bookMapper.dtoToEntity(null);
 
         Assert.isNull(book);
     }
 
     @Test
-    @DisplayName("save book - sucess")
-    void validarConverterEnityToDto() {
+    @DisplayName("deve converter entity to dto")
+    void MustConvertEntityToDto() {
         Book book = BookFactory.createBookValid();
 
         BookDto bookDto = bookMapper.entityToDto(book);
@@ -62,8 +62,8 @@ class BookMapperTest {
 
 
     @Test
-    @DisplayName("convert entity to dto null - sucess")
-    void validarConverterEntityToDtoImputNull() {
+    @DisplayName("deve retonar null - EtityToDto")
+    void mustReturnNullConvertEntityToDto() {
         BookDto bookDto = bookMapper.entityToDto(null);
 
         Assert.isNull(bookDto);
@@ -71,7 +71,7 @@ class BookMapperTest {
 
     @Test
     @DisplayName("convert entityListToDtos - sucess")
-    void convertListEntityListoToDtosSucess() {
+    void mustConvertListEntitysToDtos() {
         List<Book> bookList = new ArrayList<>();
         bookList.add(BookFactory.createBookValid());
         bookList.add(BookFactory.createBookValid2());
