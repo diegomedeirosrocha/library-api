@@ -11,9 +11,11 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.basePath;
 import static io.restassured.RestAssured.given;
+
 @ActiveProfiles("integration")
 @SpringBootTest(classes = LibraryApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class HealtCheckTest extends BaseAPI {
+
     @Test
     @DisplayName("devo retornar 200 - healthCheck")
     void healthCheckReturn200() {

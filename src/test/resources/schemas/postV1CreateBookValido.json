@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "id",
+    "status",
+    "name",
+    "year"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "default": 0,
+      "title": "The id Schema",
+      "examples": [
+        33
+      ]
+    },
+    "status": {
+      "type": "string",
+      "default": "",
+      "title": "The status Schema",
+      "examples": [
+        "NOVO"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "default": "",
+      "title": "The name Schema",
+      "examples": [
+        "java1"
+      ]
+    },
+    "year": {
+      "type": "integer",
+      "default": 0,
+      "title": "The year Schema",
+      "examples": [
+        2011
+      ]
+    }
+  },
+  "examples": [{
+    "id": 33,
+    "status": "NOVO",
+    "name": "java1",
+    "year": 2011
+  }]
+}
